@@ -1,0 +1,45 @@
+CIPHER MODULE
+=============
+
+Substitution cipher decryption for TopSecret utility.
+
+
+KEY FILE
+--------
+Location: ciphers/key.txt
+Format:   Line 1 = original chars, Line 2 = ciphered chars
+Example:
+  abcdefghijklmnopqrstuvwxyz
+  bcdefghijklmnopqrstuvwxyza
+
+
+API
+---
+  Cipher()                    - Load default key
+  Cipher(String path)         - Load alternate key
+  String decipher(String)     - Decipher text
+
+
+VALIDATION
+----------
+  - Exactly 2 lines
+  - Equal line lengths
+  - No duplicate characters
+  - Bijective mapping
+
+
+BEHAVIORS
+---------
+  - null input returns null
+  - empty input returns empty string
+  - unmapped chars pass through unchanged
+
+
+ERROR HANDLING
+--------------
+  try { new Cipher(); }
+  catch (CipherException e) { e.getErrorType(); }
+
+  Error types: KEY_FILE_NOT_FOUND, INVALID_PATH, KEY_FILE_EMPTY,
+               INVALID_LINE_COUNT, MISMATCHED_LINE_LENGTHS,
+               DUPLICATE_SOURCE_CHARACTER, DUPLICATE_TARGET_CHARACTER
