@@ -1,0 +1,35 @@
+Filehandler
+------------------------
+-dataDirectory: String
+------------------------
++listFiles(): String[]
++readFile(fileName: String): String
+------------------------
+
+Purpose of the class
+The Filehandler class is the only class that can be used to read files from the computer.
+This class reads text files from the data folder in the project directory.
+Some responbilites are to store the name of the data directory,  or to verify that the data directory exists.
+
+
+It has functions that:
+-List all available files
+-Read contents of a selected file
+
+Filehandler doesn't interact with the user and doesn't print any outputs.
+
+Psuedocode:
+Store dataDirectory as a String.
+listFiles():
+    Create a File object using dataDirectory
+    If the directory does not exist:
+        throw an error
+    Return a list of file names in the directory
+
+readFile(fileName):
+    Use dataDirectory and fileName to locate the file
+    If the file does not exist:
+        throw an error
+    Open the file using Scanner
+    Store(into String) and then Return the file contents.
+
