@@ -1,0 +1,21 @@
+Programcontrol
+--------------
+handleRequest(String[] args): String
+listFiles(): String
+
+
+Purpose of the class:
+This program control class will be constructed to retrieve the file contents from
+file handler class, determine between no argument inputs and argument inputs and
+connect contents back into command line interface
+
+It has functions that execute the:
+Retrieval of file contents
+The spewing back of information into user interface command line
+The returning of readable text
+
+Pseudocode:
+
+
+
+Tests:
