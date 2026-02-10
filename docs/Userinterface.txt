@@ -1,5 +1,35 @@
 Userinterface
-______________
--input:String
--files:String[]
-______________
+==============
++startProgram(String[] args)
+-errorMessage(): String
+----------------------
+
+Purpose of this class
+The Userinterface class is meant to provide the interface in which the user interacts with (terminal).
+This involves handling the argument when the user runs java TopSecret (args)
+
+
+startProgram(String[] args)
+The startProgram function runs the Program control class given the arguments. If there is no input,
+it calls the Program control method for returning the list of texts. If there is an input, it passes
+the value to Program control handler. If there is an invalid input, and error message is produced.
+
+errorMessage()
+This prints what the structure of the error message is supposed to be if given an incorrect input.
+
+Pseodocode:
+
+startProgram(String[] args)
+    Programcontrol pc = new Programcontrol()
+    if args.length == 0:
+        pc.listFiles
+    else if args.length == 1
+        pc.getfile(args)
+    else:
+        error
+
+errorMessage()
+    print("Structure should be: java TopSecret [argument]")
+
+Tests:
+
