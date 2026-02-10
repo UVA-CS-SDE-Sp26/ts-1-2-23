@@ -13,7 +13,7 @@ Some responbilites are to store the name of the data directory,  or to verify th
 
 
 It has functions that:
--List all available files
+-List all available files in sorted alphabetical order
 -Read contents of a selected file
 
 Filehandler doesn't interact with the user and doesn't print any outputs.
@@ -29,7 +29,6 @@ listFiles():
 readFile(fileName):
     Use dataDirectory and fileName to locate the file
     If the file does not exist:
-        throw an error
+        throw a ileNotFoundException
     Open the file using Scanner
     Store(into String) and then Return the file contents.
-
