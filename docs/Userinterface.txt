@@ -1,21 +1,19 @@
 Userinterface
 ==============
 +startProgram(String[] args): String
--errorMessage(): String
 ----------------------
 
 Purpose of this class
 The Userinterface class is meant to provide the interface in which the user interacts with (terminal).
-This involves handling the argument when the user runs java TopSecret (args)
+This involves handling the argument when the user runs java TopSecret [argument]
 
 
 startProgram(String[] args)
-The startProgram function runs the Program control class given the arguments. If there is no input,
-it calls the Program control method for returning the list of texts. If there is an input, it passes
-the value to Program control handler. If there is an invalid input, and error message is produced.
+The startProgram method validates the argument (should only contain numbers and be
+one argument). If the argument is valid (empty or only digits) then startProgram creates and calls
+the Program control class and argument handler. Otherwise, an exception occurs and rhe user is notified
+of the error.
 
-errorMessage()
-This prints what the structure of the error message is supposed to be if given an incorrect input.
 
 Pseodocode:
 
@@ -28,8 +26,7 @@ startProgram(String[] args)
     else:
         error
 
-errorMessage()
-    print("Structure should be: java TopSecret [argument]")
-
 Tests:
-
+Only valid inputs are those with one argument and contains digits.
+Test every other combination of argument; eg multiple arguments, including letters,
+etc -> all of these should result in an error or exception

@@ -7,33 +7,27 @@ public class Userinterface {
     }
 
     public String startProgram(String[] args) {
-        //Programcontrol pc = new Programcontrol();
+        Programcontrol pc = new Programcontrol();
         if ((args.length > 1)) {
             //Throw invalid argument
+            return "invalid";
         } else {
             if (args.length == 0) {
-                //return pc.handleRequest();
-                return "test";
+                return pc.listFiles();
             }
             String argument = args[0];
             if (argument.chars().allMatch(Character::isDigit)) {
-                //return pc.handleRequest(argument);
-                return "test";
+                return pc.handleRequest(argument);
             } else {
                 //Throw invalid argument
+                return "invalid";
             }
-            //return pc.handleRequest();
-            return "test";
         }
-        return "test";
-    }
-
-    private String errorMessage() {
-        return "Structure should be: java TopSecret [argument]";
     }
 }
 
 /**Questions
  * help with creating valid argument exceptions
+ * gradle issue from before, how do I make sure this wont cause issues with grading
  * anything important to note
  */
