@@ -1,6 +1,6 @@
 Userinterface
 ==============
-+startProgram(String[] args)
++startProgram(String[] args): String
 -errorMessage(): String
 ----------------------
 
