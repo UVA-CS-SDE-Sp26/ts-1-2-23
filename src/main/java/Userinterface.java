@@ -6,11 +6,10 @@ public class Userinterface {
     public Userinterface() {
     }
 
-    public String startProgram(String[] args) {
+    public String startProgram(String[] args) throws InvalidInputException {
         Programcontrol pc = new Programcontrol();
         if ((args.length > 1)) {
-            //Throw invalid argument
-            return "invalid";
+            throw new InvalidInputException("Too many arguments. Accepted format: java TopSecret [argument]");
         } else {
             if (args.length == 0) {
                 return pc.listFiles();
@@ -19,15 +18,8 @@ public class Userinterface {
             if (argument.chars().allMatch(Character::isDigit)) {
                 return pc.handleRequest(argument);
             } else {
-                //Throw invalid argument
-                return "invalid";
+                throw new InvalidInputException("Invalid argument.");
             }
         }
     }
 }
-
-/**Questions
- * help with creating valid argument exceptions
- * gradle issue from before, how do I make sure this wont cause issues with grading
- * anything important to note
- */

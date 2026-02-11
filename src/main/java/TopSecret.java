@@ -4,6 +4,10 @@
 public class TopSecret {
     public static void main(String args[]){
         Userinterface ui = new Userinterface();
-        System.out.println(ui.startProgram(args));
+        try {
+            System.out.println(ui.startProgram(args));
+        } catch (InvalidInputException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

@@ -14,7 +14,6 @@ one argument). If the argument is valid (empty or only digits) then startProgram
 the Program control class and argument handler. Otherwise, an exception occurs and rhe user is notified
 of the error.
 
-
 Pseodocode:
 
 startProgram(String[] args)
@@ -25,6 +24,12 @@ startProgram(String[] args)
         pc.getfile(args)
     else:
         error
+
+Error handling:
+try { ui.startProgram(String[] args) }
+catch (InvalidInputException e) { e.getMessage() }
+
+InvalidInputException helper class exists to catch invalid inputs.
 
 Tests:
 Only valid inputs are those with one argument and contains digits.

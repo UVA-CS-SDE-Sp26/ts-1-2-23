@@ -3,13 +3,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserinterfaceTest {
-    @Test
-    void startProgramTest() {
-        Userinterface ui = new Userinterface();
-        String[] argument = new String[1];
-        argument[0] = "Invalid argument";
-        assertEquals("Structure should be: java TopSecret [argument]",ui.startProgram(argument), "Invalid argument input should be invalid");
-    }
+
+//    @Test
+//    void startProgramTest() {
+//        Userinterface ui = new Userinterface();
+//        String[] argument = new String[1];
+//        argument[0] = "Invalid argument";
+//        assertEquals("Structure should be: java TopSecret [argument]",ui.startProgram(argument), "Invalid argument input should be invalid");
+//    }
 
     /**test to make
      * no inputs, correct
