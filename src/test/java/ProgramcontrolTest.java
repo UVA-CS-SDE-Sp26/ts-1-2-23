@@ -9,7 +9,7 @@ public class ProgramcontrolTest {
         Programcontrol pc = new Programcontrol();
 
         assertEquals(pc.listFiles(), pc.listFiles(),
-                "listFiles should consistently return the same result");
+                "listFiles should return consistent results");
     }
 
     @Test
@@ -17,5 +17,23 @@ public class ProgramcontrolTest {
         Programcontrol pc = new Programcontrol();
 
         assertEquals(pc.handleRequest("1"), pc.handleRequest("1"),
-                "Valid numeric request should return file content");
-    }}
+                "valid numerical request should yield corresponding file context");
+    }
+    @Test
+    public void testHandleInvalidHighNumber() {
+        Programcontrol pc = new Programcontrol();
+
+        String result = pc.handleRequest("456");
+
+        assertEquals("Invalid file number.", result);
+    }
+    @Test
+    public void testHandleZero() {
+        Programcontrol pc = new Programcontrol();
+
+        String result = pc.handleRequest("0");
+
+        assertEquals("Invalid file number.", result);
+    }
+
+}
