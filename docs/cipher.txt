@@ -1,45 +1,42 @@
-CIPHER MODULE
-=============
+Cipher
+-----------------
+-cipherToPlain: Map<Character, Character>
+-keyFilePath: String
+-keyValid: boolean
+---------------
++Cipher()
++Cipher(String keyFilePath)
++decipher(String cipheredText): String
++isValidKey(): boolean
+----------------------
 
-Substitution cipher decryption for TopSecret utility.
+Purpose of this class
+The Cipher class handles the decryption of text using a substitution cipher.
+It reads a key file (defaulting to ciphers/key.txt) to build a mapping of ciphered characters to original characters.
+It validates the key file format and provides a decipher method to decode strings.
 
+Pseudocode:
 
-KEY FILE
---------
-Location: ciphers/key.txt
-Format:   Line 1 = original chars, Line 2 = ciphered chars
-Example:
-  abcdefghijklmnopqrstuvwxyz
-  bcdefghijklmnopqrstuvwxyza
+Cipher(keyFilePath)
+    Validate keyFilePath is not null/empty
+    Load key file from path
+    Validate file exists, is readable, and has valid format (2 lines, unique chars)
+    Build cipherToPlain map
+    Set keyValid = true
 
+decipher(cipheredText)
+    If cipheredText is null, return null
+    If cipheredText is empty, return ""
+    Create StringBuilder
+    For each char in cipheredText:
+        If char is in cipherToPlain map:
+            append mapped original char
+        Else:
+            append char unchanged
+    Return built string
 
-API
----
-  Cipher()                    - Load default key
-  Cipher(String path)         - Load alternate key
-  String decipher(String)     - Decipher text
+Error handling:
+try { new Cipher() }
+catch (CipherException e) { e.getMessage() }
 
-
-VALIDATION
-----------
-  - Exactly 2 lines
-  - Equal line lengths
-  - No duplicate characters
-  - Bijective mapping
-
-
-BEHAVIORS
----------
-  - null input returns null
-  - empty input returns empty string
-  - unmapped chars pass through unchanged
-
-
-ERROR HANDLING
---------------
-  try { new Cipher(); }
-  catch (CipherException e) { e.getErrorType(); }
-
-  Error types: KEY_FILE_NOT_FOUND, INVALID_PATH, KEY_FILE_EMPTY,
-               INVALID_LINE_COUNT, MISMATCHED_LINE_LENGTHS,
-               DUPLICATE_SOURCE_CHARACTER, DUPLICATE_TARGET_CHARACTER
+CipherException provides ErrorType enum for specific handling (KEY_FILE_NOT_FOUND, etc).

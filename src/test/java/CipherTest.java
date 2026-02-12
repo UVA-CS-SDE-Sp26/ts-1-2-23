@@ -34,6 +34,7 @@ public class CipherTest {
     @DisplayName("Happy Path")
     class HappyPathTests {
 
+        // decipher correctly maps lowercase characters
         @Test
         @DisplayName("Decipher lowercase")
         void testDecipherLowercase() throws Exception {
@@ -43,6 +44,7 @@ public class CipherTest {
             assertEquals("hello", cipher.decipher("ifmmp"));
         }
 
+        // decipher correctly maps uppercase characters
         @Test
         @DisplayName("Decipher uppercase")
         void testDecipherUppercase() throws Exception {
@@ -52,6 +54,7 @@ public class CipherTest {
             assertEquals("HELLO", cipher.decipher("IFMMP"));
         }
 
+        // decipher correctly maps numeric characters
         @Test
         @DisplayName("Decipher numbers")
         void testDecipherNumbers() throws Exception {
@@ -61,6 +64,7 @@ public class CipherTest {
             assertEquals("9", cipher.decipher("0"));
         }
 
+        // constructor uses default key path when no argument provided
         @Test
         @DisplayName("Default key path")
         void testDefaultKeyPath() throws Exception {
@@ -83,24 +87,28 @@ public class CipherTest {
             cipher = new Cipher(keyFile.toString());
         }
 
+        // decipher returns null when input is null
         @Test
         @DisplayName("Null input returns null")
         void testNullInput() {
             assertNull(cipher.decipher(null));
         }
 
+        // decipher returns empty string when input is empty
         @Test
         @DisplayName("Empty input returns empty")
         void testEmptyInput() {
             assertEquals("", cipher.decipher(""));
         }
 
+        // decipher handles single character input
         @Test
         @DisplayName("Single character")
         void testSingleCharacter() {
             assertEquals("a", cipher.decipher("b"));
         }
 
+        // decipher preserves whitespace only strings
         @Test
         @DisplayName("Whitespace only")
         void testWhitespaceOnly() {
@@ -112,6 +120,7 @@ public class CipherTest {
     @DisplayName("Key File Validation")
     class KeyFileValidationTests {
 
+        // constructor throws exception when key file is missing
         @Test
         @DisplayName("Missing key file")
         void testMissingKeyFile() {
@@ -119,6 +128,7 @@ public class CipherTest {
             assertEquals(CipherException.ErrorType.KEY_FILE_NOT_FOUND, e.getErrorType());
         }
 
+        // constructor throws exception when path is null
         @Test
         @DisplayName("Null key file path")
         void testNullKeyFilePath() {
@@ -126,6 +136,7 @@ public class CipherTest {
             assertEquals(CipherException.ErrorType.INVALID_PATH, e.getErrorType());
         }
 
+        // constructor throws exception when path is empty
         @Test
         @DisplayName("Empty key file path")
         void testEmptyKeyFilePath() {
@@ -133,6 +144,7 @@ public class CipherTest {
             assertEquals(CipherException.ErrorType.INVALID_PATH, e.getErrorType());
         }
 
+        // constructor throws exception when key file is empty
         @Test
         @DisplayName("Empty key file")
         void testEmptyKeyFile() throws IOException {
@@ -141,6 +153,7 @@ public class CipherTest {
             assertEquals(CipherException.ErrorType.KEY_FILE_EMPTY, e.getErrorType());
         }
 
+        // constructor throws exception when key file has only one line
         @Test
         @DisplayName("Single line key file")
         void testSingleLineKeyFile() throws IOException {
@@ -149,6 +162,7 @@ public class CipherTest {
             assertEquals(CipherException.ErrorType.INVALID_LINE_COUNT, e.getErrorType());
         }
 
+        // constructor throws exception when key file has more than two lines
         @Test
         @DisplayName("Too many lines")
         void testTooManyLinesKeyFile() throws IOException {
@@ -157,6 +171,7 @@ public class CipherTest {
             assertEquals(CipherException.ErrorType.INVALID_LINE_COUNT, e.getErrorType());
         }
 
+        // constructor accepts key file with trailing newline
         @Test
         @DisplayName("Trailing newline accepted")
         void testTrailingNewlineAccepted() throws Exception {
@@ -165,6 +180,7 @@ public class CipherTest {
             assertTrue(cipher.isValidKey());
         }
 
+        // constructor throws exception when lines have different lengths
         @Test
         @DisplayName("Mismatched line lengths")
         void testMismatchedLineLengths() throws IOException {
@@ -173,6 +189,7 @@ public class CipherTest {
             assertEquals(CipherException.ErrorType.MISMATCHED_LINE_LENGTHS, e.getErrorType());
         }
 
+        // constructor throws exception when source line has duplicate characters
         @Test
         @DisplayName("Duplicate source characters")
         void testDuplicateSourceCharacters() throws IOException {
@@ -181,6 +198,7 @@ public class CipherTest {
             assertEquals(CipherException.ErrorType.DUPLICATE_SOURCE_CHARACTER, e.getErrorType());
         }
 
+        // constructor throws exception when target line has duplicate characters
         @Test
         @DisplayName("Duplicate target characters")
         void testDuplicateTargetCharacters() throws IOException {
@@ -202,18 +220,21 @@ public class CipherTest {
             cipher = new Cipher(keyFile.toString());
         }
 
+        // decipher passes spaces through unchanged
         @Test
         @DisplayName("Spaces pass through")
         void testSpacesPassthrough() {
             assertEquals("hello world", cipher.decipher("ifmmp xpsme"));
         }
 
+        // decipher passes punctuation through unchanged
         @Test
         @DisplayName("Punctuation passes through")
         void testPunctuationPassthrough() {
             assertEquals("hello, world!", cipher.decipher("ifmmp, xpsme!"));
         }
 
+        // decipher passes unmapped characters through unchanged
         @Test
         @DisplayName("Unmapped characters pass through")
         void testUnmappedCharactersPassthrough() {
@@ -221,6 +242,7 @@ public class CipherTest {
             assertEquals("test123", cipher.decipher("uftu123"));
         }
 
+        // decipher passes unicode characters through unchanged
         @Test
         @DisplayName("Unicode passes through")
         void testUnicodePassthrough() {
@@ -232,6 +254,7 @@ public class CipherTest {
     @DisplayName("Alternate Key Paths")
     class AlternateKeyPathTests {
 
+        // constructor accepts absolute file paths
         @Test
         @DisplayName("Absolute path")
         void testAbsolutePath() throws Exception {
@@ -240,6 +263,7 @@ public class CipherTest {
             assertEquals("a", cipher.decipher("b"));
         }
 
+        // constructor accepts paths with spaces
         @Test
         @DisplayName("Path with spaces")
         void testPathWithSpaces() throws Exception {
@@ -256,6 +280,7 @@ public class CipherTest {
     @DisplayName("Performance")
     class PerformanceTests {
 
+        // decipher handles very long strings efficiently
         @Test
         @DisplayName("Very long string")
         void testVeryLongString() throws Exception {
@@ -280,6 +305,7 @@ public class CipherTest {
     @DisplayName("CipherException")
     class CipherExceptionTests {
 
+        // exception preserves the error type enum
         @Test
         @DisplayName("Error type preserved")
         void testErrorTypePreserved() {
@@ -287,6 +313,7 @@ public class CipherTest {
             assertEquals(CipherException.ErrorType.KEY_FILE_NOT_FOUND, e.getErrorType());
         }
 
+        // exception preserves additional details string
         @Test
         @DisplayName("Details preserved")
         void testDetailsPreserved() {
@@ -295,6 +322,7 @@ public class CipherTest {
             assertTrue(e.getMessage().contains("test/path.txt"));
         }
 
+        // verified all error types have valid messages
         @Test
         @DisplayName("All error types have messages")
         void testAllErrorTypeMessages() {
