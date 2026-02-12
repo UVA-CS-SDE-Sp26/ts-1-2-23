@@ -1,7 +1,10 @@
 Programcontrol
 --------------
-handleRequest(String[] args): String
-listFiles(): String
+- filehandler : Filehandler
+-----------------------------
++ Programcontrol()
++ listFiles() : String
++ handleRequest(request : String) : String
 
 
 Purpose of the class:
@@ -16,6 +19,19 @@ The returning of readable text
 
 Pseudocode:
 
+files <- filehandler.listFiles()
+
+index <- convert request to integer
+index <- index - 1
+
+IF index is invalid
+    RETURN "Invalid file number."
+
+fileName files[index]
+
+content  filehandler.readFile(fileName)
+
+RETURN content
 
 
 Tests:
