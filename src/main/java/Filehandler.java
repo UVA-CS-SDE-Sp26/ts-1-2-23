@@ -52,12 +52,46 @@ public class Filehandler {
 
         while (fileScanner.hasNextLine()) {
             fileContents.append(fileScanner.nextLine());
-            if (fileScanner.hasNextLine()) {
-                fileContents.append("\n");
-            }
+            fileContents.append("\n");
         }
 
         fileScanner.close();
-        return fileContents.toString();
+
+        String rawText = fileContents.toString();
+
+        try {
+            // Use default key
+            Cipher cipher = new Cipher();
+            return cipher.decipher(rawText);
+        } catch (Exception e) {
+            throw new RuntimeException("Cipher error: " + e.getMessage());
+        }
+    }
+    public String readFile(String fileName, String keyPath) throws FileNotFoundException {
+
+        File requestedFile = new File(dataDirectory + "/" + fileName);
+
+        if (!requestedFile.exists()) {
+            throw new FileNotFoundException("File not found: " + fileName);
+        }
+
+        StringBuilder fileContents = new StringBuilder();
+        Scanner fileScanner = new Scanner(requestedFile);
+
+        while (fileScanner.hasNextLine()) {
+            fileContents.append(fileScanner.nextLine());
+            fileContents.append("\n");
+        }
+
+        fileScanner.close();
+
+        String rawText = fileContents.toString();
+
+        try {
+            Cipher cipher = new Cipher(keyPath);
+            return cipher.decipher(rawText);
+        } catch (Exception e) {
+            throw new RuntimeException("Cipher error: " + e.getMessage());
+        }
     }
 }

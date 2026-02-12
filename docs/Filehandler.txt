@@ -4,17 +4,18 @@ Filehandler
 ------------------------
 +listFiles(): String[]
 +readFile(fileName: String): String
++readFile(fileName: String, keyPath: String): String
 ------------------------
 
 Purpose of the class
 The Filehandler class is the only class that can be used to read files from the computer.
-This class reads text files from the data folder in the project directory.
-Some responbilites are to store the name of the data directory,  or to verify that the data directory exists.
+This class reads text files from the data folder in the project directory and deciphers their contents before returning them.
+Some responbilites are to store the name of the data directory, or to verify that the data directory exists.
 
 
 It has functions that:
 -List all available files in sorted alphabetical order
--Read contents of a selected file
+-Read deciphered contents of a selected file
 
 Filehandler doesn't interact with the user and doesn't print any outputs.
 
@@ -31,4 +32,10 @@ readFile(fileName):
     If the file does not exist:
         throw a ileNotFoundException
     Open the file using Scanner
-    Store(into String) and then Return the file contents.
+    Store(into String)
+    Create a Cipher object (using default key)
+    Call decipher() on the file contents
+    and then Return the deciphered text.
+
+readFile(fileName, keyPath):
+Same steps as above but create Cipher using provided keyPath
