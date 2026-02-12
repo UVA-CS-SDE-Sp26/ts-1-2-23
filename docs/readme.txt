@@ -23,3 +23,5 @@ RUN INSTRUCTIONS:
 Navigate to ts-1-2-23/src/main/java
 Run javac TopSecret.java
 Run java TopSecret [argument]
+
+May need to move data directory to project root or src/main//java/ if data directory not found.
