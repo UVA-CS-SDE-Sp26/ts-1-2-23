@@ -62,9 +62,10 @@ public class FilehandlerTest {
         testDir.delete();
     }
 
-    // readFile returns contents of existing file
+    // readFile returns deciphered contents of existing file
     @Test
     public void testReadFileReturnsContents() throws Exception {
+
         File testDir = new File("testData");
         testDir.mkdir();
 
@@ -75,8 +76,12 @@ public class FilehandlerTest {
         Filehandler filehandler = new Filehandler("testData");
         String contents = filehandler.readFile("test.txt");
 
-        assertTrue(contents.contains("Secret Message"),
-                "File contents should match written text");
+        //expected must match the auto-deciphered result
+        Cipher cipher = new Cipher();
+        String expected = cipher.decipher("Secret Message\n");
+
+        assertEquals(expected, contents,
+                "Filehandler should return deciphered file contents");
 
         new File("testData/test.txt").delete();
         testDir.delete();
@@ -189,9 +194,12 @@ public class FilehandlerTest {
         assertNotNull(filehandler,
                 "Filehandler object should be created successfully");
     }
-    //test to see if path handling is correct and no trimming or splitting occurs.
+
+
+    // test to ensure file names with spaces are handled correctly
     @Test
     public void testReadFileWithSpacesInName() throws Exception {
+
         File testDir = new File("testData");
         testDir.mkdir();
 
@@ -203,17 +211,45 @@ public class FilehandlerTest {
         Filehandler filehandler = new Filehandler("testData");
         String contents = filehandler.readFile("secret file.txt");
 
-        assertEquals(
-                "Top Secret Content",
-                contents,
-                "Filehandler should correctly read files with spaces in the name"
-        );
+        //since Filehandler now auto-deciphers,
+        //the expected must match deciphered result
+        Cipher cipher = new Cipher();
+        String expected = cipher.decipher("Top Secret Content\n");
+
+        assertEquals(expected, contents,
+                "Filehandler should correctly read files with spaces in the name");
 
         spacedFile.delete();
         testDir.delete();
     }
 
+    // readFile with custom key returns deciphered contents
+    @Test
+    public void testReadFileWithCustomKey() throws Exception {
 
+        File testDir = new File("testData");
+        testDir.mkdir();
 
+        // Create content file
+        FileWriter writer = new FileWriter("testData/custom.txt");
+        writer.write("Secret");
+        writer.close();
+
+        // Create valid key file (2 lines!)
+        FileWriter keyWriter = new FileWriter("testData/key.txt");
+        keyWriter.write("ABCDEFGHIJKLMNOPQRSTUVWXYZ\n");
+        keyWriter.write("ZYXWVUTSRQPONMLKJIHGFEDCBA");
+        keyWriter.close();
+
+        Filehandler filehandler = new Filehandler("testData");
+
+        String result = filehandler.readFile("custom.txt", "testData/key.txt");
+
+        assertNotNull(result);
+
+        new File("testData/custom.txt").delete();
+        new File("testData/key.txt").delete();
+        testDir.delete();
+    }
 }
 
